@@ -1,4 +1,4 @@
-name: Android CI
+name: Puzzling PR Builder
 on:
   pull_request:
     branches: [ develop, main ]
@@ -32,22 +32,35 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Decrypt secrets.tar.gpg
-        run: gpg --quiet --batch --yes --always-trust --decrypt --passphrase="$SECRET_GPG_PASSWORD" --output secrets.tar secrets.tar.gpg
-        env:
-          SECRET_GPG_PASSWORD: ${{ secrets.SECRET_GPG_PASSWORD }}
+#      - name: Decrypt secrets.tar.gpg
+#        run: gpg --quiet --batch --yes --always-trust --decrypt --passphrase="$SECRET_GPG_PASSWORD" --output secrets.tar secrets.tar.gpg
+#        env:
+#          SECRET_GPG_PASSWORD: ${{ secrets.SECRET_GPG_PASSWORD }}
 
-      - name: Unzip secrets.tar
-        run: tar xvf secrets.tar
+#      - name: Unzip secrets.tar
+#        run: tar xvf secrets.tar
+      - name: Create Local Properties
+          run: touch local.properties
+
+      - name: Access Local Properties
+          env:
+            base_url: ${{ secrets.base_url }}
+          run: |
+            echo base_url=\"$base_url\" >> local.properties
+      - name: Grant execute permission for gradlew
+          run: chmod +x gradlew
 
       - name: Run ktlint
         run: ./gradlew ktlintCheck
 
-      - name: Run detekt
-        run: ./gradlew detekt
+      - name: Build with Gradle
+          run: ./gradlew build
 
-      - name: Run unit tests
-        run: ./gradlew testDebugUnitTest
+#      - name: Run detekt
+#        run: ./gradlew detekt
+#
+#      - name: Run unit tests
+#        run: ./gradlew testDebugUnitTest
 
       - name: Build assemble release apk
         run: ./gradlew assembleRelease
