@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_rectangle_radius_16"
+        tools:context=".presentation.register.CodeCopyDialogFragment">
+
+        <ImageButton
+            android:id="@+id/btn_dialog_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="19dp"
+            android:background="@null"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="67dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="66dp"
+            android:text="@string/tv_dialog_title"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_dialog_close" />
+
+        <ImageView
+            android:id="@+id/iv_dialog_puzzle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="114dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="112dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dialog_title"
+            app:srcCompat="@drawable/img_dialog_puzzle" />
+
+        <TextView
+            android:id="@+id/tv_dialog_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="66dp"
+            android:text="@string/tv_dialog_code"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_dialog_puzzle" />
+
+        <Button
+            android:id="@+id/btn_dialog_copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/btn_dialog_copy"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv_dialog_code"
+            app:layout_constraintStart_toStartOf="@id/tv_dialog_code"
+            app:layout_constraintTop_toBottomOf="@id/tv_dialog_code" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
