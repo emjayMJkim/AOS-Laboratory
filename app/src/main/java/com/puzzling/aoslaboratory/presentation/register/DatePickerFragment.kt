@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.puzzling.aoslaboratory.databinding.FragmentDatePickerBinding
 import com.puzzling.aoslaboratory.util.ViewModelFactory
-import java.util.Calendar
 
 class DatePickerFragment : BottomSheetDialogFragment() {
 
@@ -24,8 +22,6 @@ class DatePickerFragment : BottomSheetDialogFragment() {
     interface OnDateSelectedListener {
         fun onDateSelected(year: Int, month: Int, dayOfMonth: Int)
     }
-
-    private val calendar = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,23 +52,6 @@ class DatePickerFragment : BottomSheetDialogFragment() {
         val dayOfMonth = datePicker.dayOfMonth
         onDateSelectedListener.onDateSelected(year, month, dayOfMonth)
         viewModel.projectStartDate = "$year/${month + 1}/$dayOfMonth"
-
-//        val year = calendar.get(Calendar.YEAR)
-//        val month = calendar.get(Calendar.MONTH)
-//        val day = calendar.get(Calendar.DAY_OF_MONTH)
-//
-//        val getDateInfo = DatePickerDialog(
-//            requireContext(),
-//            DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
-//                selectedDate = "$selectedYear/${selectedMonth + 1}/$selectedDay"
-//                viewModel.projectStartDate = selectedDate
-//            },
-//            year,
-//            month,
-//            day,
-//        )
-//
-//        getDateInfo
     }
 
     fun setOnDateSelectedListener(listener: OnDateSelectedListener) {

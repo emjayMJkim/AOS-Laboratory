@@ -13,8 +13,6 @@ class RegisterActivity :
     BaseActivity<ActivityRegisterBinding>(R.layout.activity_register) {
     private val viewModel: RegisterViewModel by viewModels { ViewModelFactory(this) }
 
-    private val calendar = Calendar.getInstance()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
