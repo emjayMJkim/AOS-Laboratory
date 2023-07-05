@@ -15,6 +15,7 @@ import com.puzzling.aoslaboratory.util.getClipboardManager
 class CodeCopyDialogFragment :
     DialogFragment() {
     private val viewModel: CodeCopyViewModel by viewModels()
+    private lateinit var clip: ClipData
     private var _binding: FragmentCodeCopyDialogBinding? = null
     private val binding get() = _binding!!
 
@@ -42,17 +43,21 @@ class CodeCopyDialogFragment :
         }
     }
 
+    private fun copyText() {
+        val clipboard = requireContext().getClipboardManager()
+        // 일반 텍스트 복사
+        clip =
+            ClipData.newPlainText("CLIPBOARD_TEXT", viewModel.codeText.value.toString())
+        Log.d("hoho", "Copied data: ${viewModel.codeText.value}")
+        // ClipData 개체를 클립보드에 넣음
+        clipboard.setPrimaryClip(clip)
+    }
+
     private fun clickCopyBtn() {
         binding.btnDialogTop.setOnClickListener {
-            val clipboard = requireContext().getClipboardManager()
-            // 일반 텍스트 복사
-            val clip: ClipData =
-                ClipData.newPlainText("CLIPBOARD_TEXT", viewModel.codeText.value.toString())
-            Log.d("hoho", "Copied data: ${viewModel.codeText.value}")
-            // ClipData 개체를 클립보드에 넣음
-            clipboard.setPrimaryClip(clip)
+            copyText()
             Toast.makeText(context, "복사했습니다", Toast.LENGTH_SHORT).show()
-            Log.d("hoho", clip.toString())
+            Log.d("hoho", "clip:: $clip")
         }
     }
 
