@@ -1,7 +1,7 @@
 package com.puzzling.aoslaboratory.presentation.register
 
 import android.content.ClipboardManager
-import android.util.Log.*
+import android.util.Log
 import androidx.core.content.getSystemService
 import androidx.lifecycle.LifecycleService
 
@@ -27,10 +27,10 @@ class ClipBoardService : LifecycleService(), ClipboardManager.OnPrimaryClipChang
             val dataCount = clipData.itemCount
             for (i in 0 until dataCount) {
                 val item = clipData.getItemAt(i)
-                e("hoho", "clip data - item: ${item.coerceToText(this)}")
+                Log.e("hoho", "clip data - item: ${item.coerceToText(this)}")
             }
         } else {
-            e("hoho", "No Manager or No Clip data")
+            Log.e("hoho", "No Manager or No Clip data")
         }
     }
 }

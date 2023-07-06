@@ -39,7 +39,7 @@ jobs:
         uses: rtCamp/action-slack-notify@master
         if: failure()
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_TITLE: 'Puzzling Android CI checks have failed 🚫'
           SLACK_USERNAME: 짱즐링
           SLACK_MESSAGE: 'WHAT THE BUG 🗯'
