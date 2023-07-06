@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- Add retrofit permissions -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Add clipBoard manager permissions -->
+    <uses-permission android:name="android.permission.READ_CLIPBOARD" />
+    <uses-permission android:name="android.permission.WRITE_CLIPBOARD" />
 
-    <!-- Add uses-permissions -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <application
         android:allowBackup="true"
@@ -14,8 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AOSLaboratory"
         tools:targetApi="31">
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity
-            android:name=".presentation.main.MainActivity"
+            android:name=".presentation.register.ExampleHomeActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -23,7 +33,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity
+            android:name=".presentation.register.InputInviteCodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
