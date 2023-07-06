@@ -43,24 +43,34 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew buildeRelease
 
-      - name: On Success
-          if: ${{ github.event.workflow_run.conclusion == 'success' }}
-          uses: rtCamp/action-slack-notify@v2
-          env:
-            SLACK_COLOR: '#53A551'
-            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-            SLACK_TITLE: 'Puzzling Android CI checks have passed ✅'
-            MSG_MINIMAL: true
-            SLACK_USERNAME: 짱즐링
-            SLACK_MESSAGE: 'PR check 성공 😎😎😎'
+#      - name: On Success
+#          if: ${{ github.event.workflow_run.conclusion == 'success' }}
+#          uses: rtCamp/action-slack-notify@v2
+#          env:
+#            SLACK_COLOR: '#53A551'
+#            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+#            SLACK_TITLE: 'Puzzling Android CI checks have passed ✅'
+#            MSG_MINIMAL: true
+#            SLACK_USERNAME: 짱즐링
+#            SLACK_MESSAGE: 'PR check 성공 😎😎😎'
+#
+#      - name: On Failed, Notify in Slack
+#          if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+#          uses: rtCamp/action-slack-notify@v2
+#          env:
+#            SLACK_COLOR: '#ff0000'
+#            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+#            SLACK_TITLE: 'Puzzling Android CI checks have failed 🚫'
+#            MSG_MINIMAL: true
+#            SLACK_USERNAME: 짱즐링
+#            SLACK_MESSAGE: 'WHAT THE BUG 🗯'
 
-      - name: On Failed, Notify in Slack
-          if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-          uses: rtCamp/action-slack-notify@v2
-          env:
-            SLACK_COLOR: '#ff0000'
-            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-            SLACK_TITLE: 'Puzzling Android CI checks have failed 🚫'
-            MSG_MINIMAL: true
-            SLACK_USERNAME: 짱즐링
-            SLACK_MESSAGE: 'WHAT THE BUG 🗯'
+        - name: Slack Notification on Failure
+            uses: rtCamp/action-slack-notify@master
+            if: failure()
+            env:
+              SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+              SLACK_TITLE: 'Puzzling Android CI checks have failed 🚫'
+              SLACK_USERNAME: 짱즐링
+              SLACK_MESSAGE: 'WHAT THE BUG 🗯'
+              SLACK_COLOR: danger
