@@ -44,7 +44,7 @@ jobs:
         run: ./gradlew buildeRelease
 
       - name: On Success
-          if: ${{ success() }}
+          if: ${{ github.event.workflow_run.conclusion == 'success' }}
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_COLOR: '#53A551'
@@ -55,7 +55,7 @@ jobs:
             SLACK_MESSAGE: 'PR check 성공 😎😎😎'
 
       - name: On Failed, Notify in Slack
-          if: ${{ failure() }}
+          if: ${{ github.event.workflow_run.conclusion == 'failure' }}
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_COLOR: '#ff0000'
