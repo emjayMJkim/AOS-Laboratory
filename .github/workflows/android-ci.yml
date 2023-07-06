@@ -1,7 +1,7 @@
 name: Puzzling PR Builder
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -43,27 +43,24 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew buildeRelease
 
-      slackNotify:
-        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-        runs-on: ubuntu-latest
-        steps:
-          - name: Notify message to slack
-            uses: rtCamp/action-slack-notify@v2
-            env:
-              SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-              SLACK_COLOR: ${{ job.status }} # 또는 'green', '#ff00ff' 처럼 직접 색상 지정
-              SLACK_USERNAME: PUZZLING AOS
-              SLACK_TITLE: FAILED 🥲
-              SLACK_MESSAGE: 'PR Check Failed ❌❌'
+      - name: On Success
+          if: ${{ success() }}
+          uses: rtCamp/action-slack-notify@v2
+          env:
+            SLACK_COLOR: '#53A551'
+            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+            SLACK_TITLE: 'Puzzling Android CI checks have passed ✅'
+            MSG_MINIMAL: true
+            SLACK_USERNAME: 짱즐링
+            SLACK_MESSAGE: 'PR check 성공 😎😎😎'
 
-        else:
-          runs-on: ubuntu-latest
-          steps:
-            - name: Notify message to slack
-              uses: rtCamp/action-slack-notify@v2
-              env:
-                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-                SLACK_COLOR: ${{ job.status }} # 또는 'green', '#ff00ff' 처럼 직접 색상 지정
-                SLACK_USERNAME: PUZZLING AOS
-                SLACK_TITLE: SUCCESS 🎉
-                SLACK_MESSAGE: 'PR Check Success 🧩'
+      - name: On Failed, Notify in Slack
+          if: ${{ failure() }}
+          uses: rtCamp/action-slack-notify@v2
+          env:
+            SLACK_COLOR: '#ff0000'
+            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+            SLACK_TITLE: 'Puzzling Android CI checks have failed 🚫'
+            MSG_MINIMAL: true
+            SLACK_USERNAME: 짱즐링
+            SLACK_MESSAGE: 'WHAT THE BUG 🗯'
