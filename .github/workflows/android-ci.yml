@@ -55,3 +55,15 @@ jobs:
               SLACK_USERNAME: PUZZLING AOS
               SLACK_TITLE: FAILED 🥲
               SLACK_MESSAGE: 'PR Check Failed ❌❌'
+
+        else:
+          runs-on: ubuntu-latest
+          steps:
+            - name: Notify message to slack
+              uses: rtCamp/action-slack-notify@v2
+              env:
+                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+                SLACK_COLOR: ${{ job.status }} # 또는 'green', '#ff00ff' 처럼 직접 색상 지정
+                SLACK_USERNAME: PUZZLING AOS
+                SLACK_TITLE: SUCCESS 🎉
+                SLACK_MESSAGE: 'PR Check Success 🧩'
