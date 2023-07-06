@@ -1,9 +1,7 @@
 name: Puzzling PR Builder
 on:
   pull_request:
-    branches: [ develop, main ]
-  issue_comment:
-    types: [ created ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -44,3 +42,25 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew buildeRelease
+
+      - name: On Success!! Congratulations
+          if: ${{ success() }}
+          uses: rtCamp/action-slack-notify@v2
+          env:
+            SLACK_COLOR: '#5085FF'
+            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+            SLACK_TITLE: 'SUCCESS 🎉🎉🎉'
+            MSG_MINIMAL: true
+            SLACK_USERNAME: PUZZLING-AOS
+            SLACK_MESSAGE: 'PR Check 성공 🧩'
+
+            - name: On Failed, Notify in Slack
+              if: ${{ failure() }}
+              uses: rtCamp/action-slack-notify@v2
+              env:
+                SLACK_COLOR: '#D00000'
+                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+                SLACK_TITLE: 'Build Failed❌'
+                MSG_MINIMAL: true
+                SLACK_USERNAME: PUZZLING-AOS
+                SLACK_MESSAGE: 'PR Check 에러 발생 ❌'
